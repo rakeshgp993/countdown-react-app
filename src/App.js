@@ -32,10 +32,10 @@ function App() {
         <article className="gift-info">
           <h3>old iphone giveaway</h3>
           <h4 className="giveaway">
-            giveaway start on {moment(giveawayDate).format('LLLL')}
+            giveaway ends on {moment(giveawayDate).format('LLLL')}
           </h4>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            RGP Lorem ipsum dolor sit, amet consectetur adipisicing elit.
             Reprehenderit molestiae cum libero atque ut voluptate qui consectetur
             aliquid incidunt voluptatem quos, dolore, non commodi quaerat aliquam
             eligendi, quisquam totam blanditiis.
