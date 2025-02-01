@@ -35,7 +35,7 @@ function App() {
             giveaway ends on {moment(giveawayDate).format('LLLL')}
           </h4>
           <p>
-            RGP Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            vijay and prashant Lorem ipsum dolor sit, amet consectetur adipisicing elit.
             Reprehenderit molestiae cum libero atque ut voluptate qui consectetur
             aliquid incidunt voluptatem quos, dolore, non commodi quaerat aliquam
             eligendi, quisquam totam blanditiis.
