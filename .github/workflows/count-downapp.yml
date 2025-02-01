@@ -93,4 +93,6 @@ jobs:
             --registry-password ${{ secrets.AZURE_CLIENT_SECRET }} \
             --dns-name-label myapp-container \
             --ports 80 \
-            --os-type Linux
+            --os-type Linux \
+            --cpu 1 \
+            --memory 1 \
