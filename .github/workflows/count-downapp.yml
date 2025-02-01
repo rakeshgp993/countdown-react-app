@@ -78,7 +78,7 @@ jobs:
           docker push countdownacr.azurecr.io/react-app:latest
 
   deploy:
-    needs: build
+    needs: docker
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Azure Container Instances
@@ -92,4 +92,5 @@ jobs:
             --registry-username ${{ secrets.AZURE_CLIENT_ID }} \
             --registry-password ${{ secrets.AZURE_CLIENT_SECRET }} \
             --dns-name-label myapp-container \
-            --ports 80
+            --ports 80 \
+            --os-type Linux
