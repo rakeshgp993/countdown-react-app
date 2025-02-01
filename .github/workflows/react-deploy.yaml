@@ -28,11 +28,18 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run CodeQL Security Scan
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: javascript,typescript
 
       - name: Perform CodeQL Scan
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
 
+      - name: Build React App
+        run: yarn build
 
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build
+          path: build/
