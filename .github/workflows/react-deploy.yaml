@@ -94,7 +94,7 @@ jobs:
             # Deploy to Azure Web App
             az webapp create \
               --resource-group countdown-react-app \
-              --plan B1 \
+              --plan countdownServicePlan  \
               --name my-webapp \
               --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
                
