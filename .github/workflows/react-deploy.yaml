@@ -95,7 +95,7 @@ jobs:
             az webapp create \
               --resource-group countdown-react-app \
               --plan countdownServicePlan  \
-              --name my-webapp \
+              --name testingcountdown \
               --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
                
             az webapp config container set \
