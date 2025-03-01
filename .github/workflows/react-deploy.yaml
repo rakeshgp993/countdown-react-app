@@ -99,7 +99,7 @@ jobs:
               --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
                
             az webapp config container set \
-              --name my-webapp \
+              --name testingcountdown \
               --resource-group countdown-react-app \
               --docker-custom-image-name countdownacr.azurecr.io/react-app:latest \
               --docker-registry-server-url https://countdownacr.azurecr.io \
