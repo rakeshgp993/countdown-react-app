@@ -88,4 +88,21 @@ jobs:
               --os-type Linux \
               --cpu 1 \
               --memory 1
+
+        - name: Deploy to Azure Web App
+          run: |
+            # Deploy to Azure Web App
+            az webapp create \
+              --resource-group countdown-react-app \
+              --plan myAppServicePlan \
+              --name my-webapp \
+              --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
+               
+            az webapp config container set \
+              --name my-webapp \
+              --resource-group countdown-react-app \
+              --docker-custom-image-name countdownacr.azurecr.io/react-app:latest \
+              --docker-registry-server-url https://countdownacr.azurecr.io \
+              --docker-registry-server-user ${{ secrets.AZURE_CLIENT_ID }} \
+              --docker-registry-server-password ${{ secrets.AZURE_CLIENT_SECRET }}
             
