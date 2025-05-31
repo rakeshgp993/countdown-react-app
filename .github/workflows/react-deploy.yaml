@@ -92,6 +92,7 @@ jobs:
         - name: Deploy to Azure Web App
           run: |
             # Deploy to Azure Web App
+            echo "running webapp deployment"
             az webapp create \
               --resource-group countdown-react-app \
               --plan countdownServicePlan  \
