@@ -1,4 +1,4 @@
-name: React CI/CD with Docker and Azure
+name: React CI/CD with Docker and Azure rgp test
 
 on:
   push:
