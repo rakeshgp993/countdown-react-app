@@ -99,7 +99,7 @@ jobs:
             echo "running webapp deployment"
             az webapp create \
               --resource-group countdown-react-app \
-              --plan countdownServicePlan  \
+              --plan ASP-countdownreactapp-8d98  \
               --name testingcountdown \
               --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
                
