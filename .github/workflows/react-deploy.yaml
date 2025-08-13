@@ -93,25 +93,25 @@ jobs:
         #       --cpu 1 \
         #       --memory 1
 
-        - name: Deploy to Azure Web App
-          run: |
-            # Deploy to Azure Web App
-            echo "Logging in to Azure"
-            az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-            echo "running webapp deployment"
-            az webapp create \
-              --resource-group countdown-react-app \
-              --plan ASP-countdownreactapp-8d98  \
-              --name testingcountdown \
-              --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
+        # - name: Deploy to Azure Web App
+        #   run: |
+        #     # Deploy to Azure Web App
+        #     echo "Logging in to Azure"
+        #     az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+        #     echo "running webapp deployment"
+        #     az webapp create \
+        #       --resource-group countdown-react-app \
+        #       --plan ASP-countdownreactapp-8d98  \
+        #       --name testingcountdown \
+        #       --deployment-container-image-name countdownacr.azurecr.io/react-app:latest
                
-            az webapp config container set \
-              --name testingcountdown \
-              --resource-group countdown-react-app \
-              --docker-custom-image-name countdownacr.azurecr.io/react-app:latest \
-              --docker-registry-server-url https://countdownacr.azurecr.io \
-              --docker-registry-server-user ${{ secrets.AZURE_CLIENT_ID }} \
-              --docker-registry-server-password ${{ secrets.AZURE_CLIENT_SECRET }}
+        #     az webapp config container set \
+        #       --name testingcountdown \
+        #       --resource-group countdown-react-app \
+        #       --docker-custom-image-name countdownacr.azurecr.io/react-app:latest \
+        #       --docker-registry-server-url https://countdownacr.azurecr.io \
+        #       --docker-registry-server-user ${{ secrets.AZURE_CLIENT_ID }} \
+        #       --docker-registry-server-password ${{ secrets.AZURE_CLIENT_SECRET }}
 
         - name: Deploy to Azure Container Apps
           run: |
@@ -131,13 +131,12 @@ jobs:
               --resource-group countdown-react-app \
               --environment countdown-env \
               --image countdownacr.azurecr.io/react-app:latest \
-              --target-port 80 \
-              --ingress external \
-              --cpu 1 \
-              --memory 1Gi \
               --registry-server countdownacr.azurecr.io \
               --registry-username ${{ secrets.AZURE_CLIENT_ID }} \
               --registry-password ${{ secrets.AZURE_CLIENT_SECRET }} \
-              --min-replicas 1 \
-              --max-replicas 3
+              --cpu 0.5 \
+              --memory 1.0Gi \
+              --ingress external \
+              --target-port 80
+
             
