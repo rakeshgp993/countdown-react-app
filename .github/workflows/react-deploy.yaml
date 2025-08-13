@@ -77,21 +77,21 @@ jobs:
       needs: docker
       runs-on: ubuntu-latest
       steps:
-        - name: Deploy to Azure Container Instances
-          run: |
-            az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-            az container create \
-              --resource-group countdown-react-app \
-              --name my-container \
-              --image countdownacr.azurecr.io/countdown-app:latest \
-              --registry-login-server countdownacr.azurecr.io \
-              --registry-username ${{ secrets.AZURE_CLIENT_ID }} \
-              --registry-password ${{ secrets.AZURE_CLIENT_SECRET }} \
-              --dns-name-label myapp-container \
-              --ports 80 \
-              --os-type Linux \
-              --cpu 1 \
-              --memory 1
+        # - name: Deploy to Azure Container Instances
+        #   run: |
+        #     az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+        #     az container create \
+        #       --resource-group countdown-react-app \
+        #       --name my-container \
+        #       --image countdownacr.azurecr.io/countdown-app:latest \
+        #       --registry-login-server countdownacr.azurecr.io \
+        #       --registry-username ${{ secrets.AZURE_CLIENT_ID }} \
+        #       --registry-password ${{ secrets.AZURE_CLIENT_SECRET }} \
+        #       --dns-name-label myapp-container \
+        #       --ports 80 \
+        #       --os-type Linux \
+        #       --cpu 1 \
+        #       --memory 1
 
         - name: Deploy to Azure Web App
           run: |
@@ -110,4 +110,29 @@ jobs:
               --docker-registry-server-url https://countdownacr.azurecr.io \
               --docker-registry-server-user ${{ secrets.AZURE_CLIENT_ID }} \
               --docker-registry-server-password ${{ secrets.AZURE_CLIENT_SECRET }}
+
+        - name: Deploy to Azure Container Apps
+          run: |
+            echo "Deploying to Azure Container Apps"
+            # Create the environment if it doesn't exist
+            az containerapp env create \
+              --name countdown-env \
+              --resource-group countdown-react-app \
+              --location eastus
+
+            # Create or update the Container App
+            az containerapp create \
+              --name countdown-app \
+              --resource-group countdown-react-app \
+              --environment countdown-env \
+              --image countdownacr.azurecr.io/react-app:latest \
+              --target-port 80 \
+              --ingress external \
+              --cpu 1 \
+              --memory 1Gi \
+              --registry-server countdownacr.azurecr.io \
+              --registry-username ${{ secrets.AZURE_CLIENT_ID }} \
+              --registry-password ${{ secrets.AZURE_CLIENT_SECRET }} \
+              --min-replicas 1 \
+              --max-replicas 3
             
